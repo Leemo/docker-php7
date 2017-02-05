@@ -8,4 +8,6 @@ $ chmod +x /usr/local/bin/docker-compose
 ```
 
 ## Example config
-Soon...
+See in:
+* docker-compose.yml
+* nginx-domain.conf

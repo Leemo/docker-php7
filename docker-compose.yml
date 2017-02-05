@@ -1,0 +1,31 @@
+version: '2'
+
+mysql:
+    image: mariadb:latest
+    volumes:
+        - ../mysql:/var/lib/mysql
+    environment:
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: MYSQL_DATABASE
+        MYSQL_USER: MYSQL_USER
+        MYSQL_PASSWORD: MYSQL_PASSWORD
+    ports:
+        - "3306:3306"
+php-fpm:
+    image: leemo/laravel5:production
+    links:
+        - mysql
+    ports:
+        - "9000:9000"
+    volumes:
+        - ../www:/var/www/html
+web:
+    image: nginx:alpine
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - ../www:/var/www
+        - ../sites-enabled:/etc/nginx/conf.d
+    links:
+        - php
