@@ -1,4 +1,5 @@
-# Usage
+# PHP packages
+
 ## Install [docker-compose](https://docs.docker.com/compose/)
 
 See: https://docs.docker.com/compose/install/
