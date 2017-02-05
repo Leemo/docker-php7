@@ -7,7 +7,12 @@ $ curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-com
 $ chmod +x /usr/local/bin/docker-compose
 ```
 
-## Example config
+## Example configs
 See in:
 * docker-compose.yml
 * nginx-domain.conf
+
+## Run
+```
+$ docker-compose run
+```
