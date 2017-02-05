@@ -37,4 +37,4 @@ RUN curl -sS https://getcomposer.org/installer | php \
 	&& rm -rf /var/cache/apk/*
 
 EXPOSE 9000
-CMD ["docker-php-entrypoint"]
+CMD ["php-fpm"]
