@@ -9,6 +9,7 @@
 **leemo/php7:latest** contains:
 * php-bz2
 * php-gd
+* php-imagick
 * php-json
 * php-mcrypt
 * php-mbstring
