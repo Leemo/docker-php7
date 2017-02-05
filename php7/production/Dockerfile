@@ -1,47 +1,63 @@
-FROM alpine:edge
+FROM php:7.1-fpm-alpine
 
 Maintainer Alexey Popov <leemo-studio.net>
 
-ENV TIMEZONE UTC
-ENV PHP_MEMORY_LIMIT 512M
-ENV MAX_UPLOAD 50M
-ENV PHP_MAX_FILE_UPLOAD 200
-ENV PHP_MAX_POST 100M
+ENV IMAGICK_VERSION 3.4.2
 
-# PHP7 and packages
 RUN apk add --update --no-cache \
-	curl \
-	php7 \
-	php7-bz2 \
-	php7-curl \
-	php7-fpm \
-	php7-gd \
-	php7-json \
-	php7-mbstring \
-	php7-mcrypt \
-	php7-opcache \
-	php7-openssl \
-	php7-pdo \
-	php7-pdo_mysql \
-	php7-phar \
-	php7-xml \
-	php7-xmlreader \
-	php7-zip \
-	php7-zlib \
-	--repository http://dl-cdn.alpinelinux.org/alpine/edge/community/
+	bzip2-dev \
+	freetype-dev \
+	git \
+	libjpeg-turbo-dev \
+	libmcrypt-dev \
+	libpng-dev \
+	mysql-client \
+	unzip \
+	zip
 
-RUN ln -s /usr/bin/php7 /usr/bin/php \
-	&& ln -s /usr/bin/php7 /usr/bin/php \
-	&& ln -s /usr/bin/php-config7 /usr/bin/php-config \
-	&& ln -s /usr/bin/phpize7 /usr/bin/phpize \
-	&& curl -sS https://getcomposer.org/installer | php \
-	&& mv composer.phar /usr/local/bin/composer
+RUN docker-php-ext-install \
+	bz2 \
+	exif \
+	gd \
+	json \
+	mcrypt \
+	mbstring \
+	opcache \
+	openssl \
+	pdo \
+	pdo_mysql \
+	phar
+	tokenizer \
+	xml \
+	zip
 
-RUN rm -rf /var/cache/apk/*
+RUN apk add --no-cache --virtual .imagick-build-dependencies \
+    libtool \
+	autoconf \
+	git \
+	gcc \
+	g++ \
+	make \
+	imagemagick-dev \
+    && apk add --virtual .imagick-runtime-dependencies \
+    imagemagick \
+
+    && IMAGICK_TAG="3.4.2" \
+    && git clone -o ${IMAGICK_TAG} --depth 1 https://github.com/mkoppanen/imagick.git /tmp/imagick \
+    && cd /tmp/imagick \
+
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+
+    && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
+
+    && apk del .imagick-build-dependencies
+
+RUN curl -sS https://getcomposer.org/installer | php \
+	&& mv composer.phar /usr/local/bin/composer \
+	&& rm -rf /var/cache/apk/*
 
 EXPOSE 9000
-
-WORKDIR /var/www
-VOLUME /var/www
-
-ENTRYPOINT ["php-fpm7"]
+CMD ["entrypoint.sh"]
