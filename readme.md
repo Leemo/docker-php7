@@ -16,6 +16,7 @@
 * php-opcache
 * php-pdo
 * php-pdo_mysql
+* php-pdo_mysql (only on `leemo/php7:staging`)
 * php-tokenizer
 * php-xml
 * php-zip
