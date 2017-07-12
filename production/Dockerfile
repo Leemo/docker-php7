@@ -22,7 +22,6 @@ RUN docker-php-ext-install \
 	mcrypt \
 	mbstring \
 	opcache \
-	pcre \
 	pdo \
 	pdo_mysql \
 	tokenizer \
