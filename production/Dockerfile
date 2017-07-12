@@ -11,6 +11,7 @@ RUN apk add --update --no-cache \
 	libxml2-dev \
 	mysql-client \
 	openssl \
+	pcre-dev \
 	unzip \
 	zip
 
@@ -21,16 +22,17 @@ RUN docker-php-ext-install \
 	mcrypt \
 	mbstring \
 	opcache \
+	pcre \
 	pdo \
 	pdo_mysql \
 	tokenizer \
 	xml \
 	zip
 
-RUN apk add --update --no-cache autoconf alpine-sdk g++ imagemagick-dev libtool make \
+RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
-    && apk del autoconf alpine-sdk g++ libtool make
+    && apk del autoconf g++ libtool make
 
 RUN curl -sS https://getcomposer.org/installer | php \
 	&& mv composer.phar /usr/local/bin/composer \
