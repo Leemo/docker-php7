@@ -27,10 +27,10 @@ RUN docker-php-ext-install \
 	xml \
 	zip
 
-RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make \
+RUN apk add --update --no-cache autoconf alpine-sdk g++ imagemagick-dev libtool make \
     && pecl install imagick \
     && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make
+    && apk del autoconf alpine-sdk g++ libtool make
 
 RUN curl -sS https://getcomposer.org/installer | php \
 	&& mv composer.phar /usr/local/bin/composer \
