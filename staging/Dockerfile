@@ -18,6 +18,7 @@ RUN apk add --update --no-cache \
 	php7-pdo_mysql \
 	php7-phar \
 	php7-session \
+	php7-soap \
 	php7-tokenizer \
 	php7-xml \
 	php7-zip \
