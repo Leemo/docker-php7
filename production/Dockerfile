@@ -1,41 +1,31 @@
-FROM php:7.1-fpm-alpine
+FROM alpine:latest
 
 Maintainer Alexey Popov <leemo-studio.net>
 
 RUN apk add --update --no-cache \
-	bzip2-dev \
-	freetype-dev \
-	libjpeg-turbo-dev \
-	libmcrypt-dev \
-	libpng-dev \
-	libxml2-dev \
-	mysql-client \
-	openssl \
-	pcre-dev \
-	unzip \
-	zip
-
-RUN docker-php-ext-install \
-	bz2 \
-	gd \
-	json \
-	mcrypt \
-	mbstring \
-	opcache \
-	pdo \
-	pdo_mysql \
-	tokenizer \
-	xml \
-	zip
-
-RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make
-
-RUN curl -sS https://getcomposer.org/installer | php \
-	&& mv composer.phar /usr/local/bin/composer \
-	&& rm -rf /var/cache/apk/*
+	curl \
+	php7 \
+	php7-bz2 \
+	php7-dom \
+	php7-fileinfo \
+	php7-imagick \
+	php7-json \
+	php7-mcrypt \
+	php7-mbstring \
+	php7-opcache \
+	php7-openssl \
+	php7-pdo \
+	php7-pdo_mysql \
+	php7-phar \
+	php7-session \
+	php7-soap \
+	php7-tokenizer \
+	php7-xml \
+	php7-zip \
+	php7-zlib \
+	&& rm -rf /var/cache/apk/* \
+	&& curl -sS https://getcomposer.org/installer | php \
+	&& mv composer.phar /usr/local/bin/composer
 
 EXPOSE 9000
-CMD ["php-fpm"]
+CMD ["php-fpm7"]
