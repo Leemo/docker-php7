@@ -6,6 +6,8 @@ RUN apk add --update --no-cache \
 	curl \
 	php7 \
 	php7-bz2 \
+	php7-dom \
+	php7-fileinfo \
 	php7-imagick \
 	php7-json \
 	php7-mcrypt \
@@ -16,7 +18,6 @@ RUN apk add --update --no-cache \
 	php7-pdo_mysql \
 	php7-phar \
 	php7-session \
-	php7-soap \
 	php7-tokenizer \
 	php7-xml \
 	php7-zip \
