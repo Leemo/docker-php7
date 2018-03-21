@@ -8,6 +8,7 @@ RUN apk add --update --no-cache \
 	php7-bz2 \
 	php7-dom \
 	php7-fileinfo \
+	php7-iconv \
 	php7-imagick \
 	php7-json \
 	php7-mcrypt \
